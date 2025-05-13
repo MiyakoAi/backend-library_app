@@ -1,0 +1,23 @@
+{
+  "name": "perpustakaan-kampus-backend",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "type": "module",
+  "description": "Tugas Kuliah RPLK membuat aplikasi perpustakaan kampus dengan Node.js dan MySQL",
+  "author": "Mugni Adji",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
