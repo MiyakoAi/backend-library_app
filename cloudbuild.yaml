@@ -3,6 +3,7 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
   - name: 'gcr.io/cloud-builders/gcloud'
+    args: []
 
   # Deploy ke Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
