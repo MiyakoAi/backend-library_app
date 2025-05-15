@@ -2,18 +2,15 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
 
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'build']
-
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'ProjectBackendLibraryApp'
-      - '--source=.'
-      - '--region=asia-southeast2'
+      - 'backend-perpustakaan'        
+      - '--source=.'                  
+      - '--region=asia-southeast2'   
       - '--platform=managed'
-      - '--allow-unauthenticated'
+      - '--allow-unauthenticated'  
 
 timeout: '1200s'  # Timeout build (20 menit)
 
