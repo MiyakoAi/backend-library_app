@@ -1,10 +1,8 @@
-options:
-  logging: CLOUD_LOGGING_ONLY
-
 steps:
   # Install dependencies
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
+  - name: 'gcr.io/cloud-builders/gcloud'
 
   # Deploy ke Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -16,3 +14,6 @@ steps:
       - '--region=asia-southeast2'
       - '--platform=managed'
       - '--allow-unauthenticated'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
