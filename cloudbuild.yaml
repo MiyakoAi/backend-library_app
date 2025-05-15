@@ -3,18 +3,19 @@ steps:
     args: ['install']
 
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'build']  # Jika kamu pakai proses build
+    args: ['run', 'build']
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'ProjectBackendLibraryApp'     # Ganti dengan nama servicemu
-      - '--source=.'               # Artinya deploy dari direktori saat ini
-      - '--region=asia-southeast2' # Ganti dengan region yang kamu pakai
+      - 'ProjectBackendLibraryApp'
+      - '--source=.'
+      - '--region=asia-southeast2'
       - '--platform=managed'
       - '--allow-unauthenticated'
 
+timeout: '1200s'  # Timeout build (20 menit)
 
 options:
   logging: CLOUD_LOGGING_ONLY
