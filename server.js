@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 
 const startServer = async () => {
   try {
@@ -16,8 +16,21 @@ const startServer = async () => {
     console.log('models tersingkronisasi.');
 
     app.listen(PORT, () => {
-      console.log(`Server is running at http://localhost:${PORT}`);
+      
+      let count = 0;
+      const interval = setInterval(() => {
+        count = (count % 5) + 1;
+        const dots = '.'.repeat(count);
+        process.stdout.write(`\rLoading${dots}   `);
+      }, 500);
+      setTimeout(() => {
+        clearInterval(interval);
+        console.log(`\rServer is running at http://localhost:${PORT}\n`);
+        process.stdout.write("\rHello Sekai! >_<     \n");
+      }, 5000);
+
     });
+
   } catch (error) {
     console.error('tidak dapat menyambungkan ke database:', error.message);
     process.exit(1);

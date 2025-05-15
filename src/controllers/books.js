@@ -1,58 +1,71 @@
-import Book from '../models/Book.js';
+import Buku from '../models/dbModel.js'; 
 
-// Create book
-export const createBook = async (req, res) => {
+// Create buku baru
+export const createBuku = async (req, res) => {
   try {
-    const book = await Book.create(req.body);
-    res.status(201).json(book);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const { judul_buku, penulis_buku, penerbit_buku, tahun_penerbit, stok, images } = req.body;
+    const newBuku = await Buku.Buku.create({
+      judul_buku,
+      penulis_buku,
+      penerbit_buku,
+      tahun_penerbit,
+      stok,
+      images
+    });
+    res.status(201).json(newBuku);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-// Get all books
-export const getBooks = async (req, res) => {
+// Read semua buku
+export const getAllBuku = async (req, res) => {
   try {
-    const books = await Book.findAll();
-    res.json(books);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const bukus = await Buku.Buku.findAll();
+    res.json(bukus);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-// Get book by ID
-export const getBookById = async (req, res) => {
+// Read buku by id
+export const getBukuById = async (req, res) => {
   try {
-    const book = await Book.findByPk(req.params.id);
-    if (book) res.json(book);
-    else res.status(404).json({ message: 'Book not found' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const id = req.params.id;
+    const buku = await Buku.Buku.findByPk(id);
+    if (!buku) return res.status(404).json({ message: 'Buku tidak ditemukan' });
+    res.json(buku);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-// Update book
-export const updateBook = async (req, res) => {
+// Update buku by id
+export const updateBuku = async (req, res) => {
   try {
-    const book = await Book.findByPk(req.params.id);
-    if (book) {
-      await book.update(req.body);
-      res.json(book);
-    } else res.status(404).json({ message: 'Book not found' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const id = req.params.id;
+    const { judul_buku, penulis_buku, penerbit_buku, tahun_penerbit, stok, images } = req.body;
+
+    const buku = await Buku.Buku.findByPk(id);
+    if (!buku) return res.status(404).json({ message: 'Buku tidak ditemukan' });
+
+    await buku.update({ judul_buku, penulis_buku, penerbit_buku, tahun_penerbit, stok, images });
+    res.json(buku);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-// Delete book
-export const deleteBook = async (req, res) => {
+// Delete buku by id
+export const deleteBuku = async (req, res) => {
   try {
-    const book = await Book.findByPk(req.params.id);
-    if (book) {
-      await book.destroy();
-      res.json({ message: 'Book deleted' });
-    } else res.status(404).json({ message: 'Book not found' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const id = req.params.id;
+    const buku = await Buku.Buku.findByPk(id);
+    if (!buku) return res.status(404).json({ message: 'Buku tidak ditemukan' });
+
+    await buku.destroy();
+    res.json({ message: 'Buku berhasil dihapus' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
