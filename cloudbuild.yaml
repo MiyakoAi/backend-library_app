@@ -1,20 +1,20 @@
 steps:
-  # Install dependencies
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: []
 
-  # Deploy ke Cloud Run
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']  # Jika kamu pakai proses build
+
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'backend-library_app'
-      - '--source=.'
-      - '--region=asia-southeast2'
+      - 'ProjectBackendLibraryApp'     # Ganti dengan nama servicemu
+      - '--source=.'               # Artinya deploy dari direktori saat ini
+      - '--region=asia-southeast2' # Ganti dengan region yang kamu pakai
       - '--platform=managed'
       - '--allow-unauthenticated'
+
 
 options:
   logging: CLOUD_LOGGING_ONLY
