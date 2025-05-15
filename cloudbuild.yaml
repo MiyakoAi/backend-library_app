@@ -6,7 +6,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'backend-perpustakaan'        
+      - 'ProjectBackendLibraryApp'        
       - '--source=.'                  
       - '--region=asia-southeast2'   
       - '--platform=managed'
