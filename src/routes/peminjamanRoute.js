@@ -5,7 +5,6 @@ import { authorizeRole } from "../middlewares/authorizeRole.js";
 
 const router = express.Router();
 
-// Hanya staff yang bisa meminjamkan buku
-router.post("/peminjaman", verifyToken, authorizeRole("staff"), createPeminjaman);
+router.post("/peminjaman", verifyToken, authorizeRole("staff"), createPeminjaman); // staff
 
 export default router;
