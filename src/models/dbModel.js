@@ -19,7 +19,8 @@ export const Mahasiswa = sequelize.define('Mahasiswa', {
   nama_mahasiswa: {type: DataTypes.STRING(100), allowNull: false},
   jk_mahasiswa: {type: DataTypes.CHAR(1), allowNull: false},
   jurusan_mahasiswa: {type: DataTypes.STRING(2), allowNull: false},
-  no_tel_mahasiswa: {type: DataTypes.STRING(13), allowNull: false}
+  no_tel_mahasiswa: {type: DataTypes.STRING(13), allowNull: false},
+  id_user: {type: DataTypes.INTEGER, allowNull: false, unique: true}
 }, {tableName: 'mahasiswa', timestamps: false});
 
 // Model Staff
@@ -27,8 +28,17 @@ export const Staff = sequelize.define('Staff', {
   id_staff: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
   nama_staff: {type: DataTypes.STRING(50), allowNull: false},
   jabatan_staff: {type: DataTypes.STRING(50), allowNull: false},
-  no_tel_staff: {type: DataTypes.STRING(13), allowNull: false}
+  no_tel_staff: {type: DataTypes.STRING(13), allowNull: false},
+  id_user: {type: DataTypes.INTEGER, allowNull: false, unique: true}
 }, {tableName: 'staff', timestamps: false});
+
+// Model User
+export const User = sequelize.define("User", {
+  id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
+  username: {type: DataTypes.STRING, allowNull: false, unique: true},
+  password: {type: DataTypes.STRING, allowNull: false},
+  role: {type: DataTypes.ENUM('admin', 'staff', 'mahasiswa'), allowNull: false, defaultValue: 'mahasiswa'}
+}, {tableName: 'users', timestamps: false});
 
 // Model Peminjaman
 export const Peminjaman = sequelize.define('Peminjaman', {
@@ -64,4 +74,12 @@ Pengembalian.belongsTo(Mahasiswa, { foreignKey: 'id_mahasiswa' });
 Staff.hasMany(Pengembalian, { foreignKey: 'id_staff' });
 Pengembalian.belongsTo(Staff, { foreignKey: 'id_staff' });
 
-export default {sequelize, Buku, Mahasiswa, Staff, Peminjaman, Pengembalian};
+// Relasi User - Mahasiswa
+User.hasOne(Mahasiswa, { foreignKey: 'id_user' });
+Mahasiswa.belongsTo(User, { foreignKey: 'id_user' });
+
+// Relasi User - Staff
+User.hasOne(Staff, { foreignKey: 'id_user' });
+Staff.belongsTo(User, { foreignKey: 'id_user' });
+
+export default {sequelize, Buku, Mahasiswa, Staff, Peminjaman, Pengembalian, User};
