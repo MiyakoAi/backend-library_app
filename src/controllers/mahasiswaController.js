@@ -1,4 +1,4 @@
-import { Peminjaman, Pengembalian, Buku } from "../models/dbModel.js";
+import { Peminjaman, Pengembalian, Buku, Mahasiswa } from "../models/dbModel.js";
 
 export const getRiwayatMahasiswa = async (req, res) => {
   try {
@@ -6,7 +6,7 @@ export const getRiwayatMahasiswa = async (req, res) => {
     const mahasiswa = await Mahasiswa.findOne({ where: { id_user } });
 
     if (!mahasiswa) {
-      return res.status(404).json({ msg: "Mahasiswa tidak ditemukan" });
+      return res.status(404).json({ msg: "Mahasiswa tidak ditemukan/Token salah" });
     }
 
     const pinjaman = await Peminjaman.findAll({
@@ -18,6 +18,10 @@ export const getRiwayatMahasiswa = async (req, res) => {
       where: { id_mahasiswa: mahasiswa.id_mahasiswa },
       include: [{ model: Buku, attributes: ["judul_buku"] }]
     });
+
+    if (pinjaman.length === 0 && pengembalian.length === 0) {
+      return res.status(200).json({ msg: "Anda belum meminjam buku dari perpustakaan." });
+    }
 
     res.json({
       peminjaman: pinjaman,

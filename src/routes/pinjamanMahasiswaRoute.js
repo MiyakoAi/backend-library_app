@@ -5,6 +5,6 @@ import { authorizeRole } from "../middlewares/authorizeRole.js";
 
 const router = express.Router();
 
-router.get("/mahasiswa/peminjaman-ku", verifyToken, authorizeRole("mahasiswa"), getRiwayatMahasiswa);
+router.get("/mahasiswa/peminjaman-ku", verifyToken, authorizeRole("mahasiswa"), getRiwayatMahasiswa); // Mahasiswa
 
 export default router;

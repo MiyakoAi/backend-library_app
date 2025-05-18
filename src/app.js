@@ -19,7 +19,7 @@ app.use('/api/auth', authRoutes); // autentication
 app.use('/api/ISBN', externalBookRoutes); // pencarian buku berdasarkan nomor ISBN
 app.use('/api/books', bookRoutes); // book API
 app.use("/api/staff", staffRoute); // staff API
-app.use('/api/mahasiswa', mahasiswaRoutes); // mahasiswa API
+app.use('/api/mahasiswaAdmin', mahasiswaRoutes); // mahasiswa for admin
 app.use("/api", peminjamanRoute); // peminjaman API
 app.use("/api", pengembalianRoute); // pengembalian API
 app.use("/api", mahasiswaRoute); // mahasiswa pinjaman API

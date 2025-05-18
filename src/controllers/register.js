@@ -27,7 +27,7 @@ export const register = async (req, res) => {
     } else if (role === 'mahasiswa') {
       await Mahasiswa.create({
         nama_mahasiswa: nama,
-        kode_mahasiswa: generateKodeMahasiswa(), // fungsi ini harus kamu buat
+        kode_mahasiswa: generateKodeMahasiswa(),
         jk_mahasiswa: 'L', 
         jurusan_mahasiswa: 'TI',
         no_tel_mahasiswa: no_tel,
