@@ -14,7 +14,12 @@ export const registerUser = async (data) => {
   if (role === 'mahasiswa') {
     await Mahasiswa.create({ ...profile, id_user: user.id });
   } else if (role === 'staff') {
-    await Staff.create({ ...profile, id_user: user.id });
+    await Staff.create({
+      id_user: user.id,
+      nama_staff: profile.nama,
+      jabatan_staff: profile.jabatan,
+      no_tel_staff: profile.no_tel
+    });
   }
 
   return { id: user.id, username: user.username, role: user.role };

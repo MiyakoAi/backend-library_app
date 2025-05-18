@@ -15,7 +15,7 @@ export const Buku = sequelize.define('Buku', {
 // Model Mahasiswa
 export const Mahasiswa = sequelize.define('Mahasiswa', {
   id_mahasiswa: {type: DataTypes.BIGINT, autoIncrement: true, primaryKey: true},
-  kode_mahasiswa: {type: DataTypes.STRING(9), allowNull: false},
+  kode_mahasiswa: {type: DataTypes.STRING(255), allowNull: false},
   nama_mahasiswa: {type: DataTypes.STRING(100), allowNull: false},
   jk_mahasiswa: {type: DataTypes.CHAR(1), allowNull: false},
   jurusan_mahasiswa: {type: DataTypes.STRING(2), allowNull: false},
