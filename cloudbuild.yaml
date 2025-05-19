@@ -1,18 +1,24 @@
 steps:
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', '-t', 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image', '.'
+    ]
 
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push', 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image'
+    ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
     args:
-      - 'run'
-      - 'deploy'
-      - 'project-backend-library-app'        
-      - '--source=.'                  
-      - '--region=asia-southeast2'   
-      - '--platform=managed'
-      - '--allow-unauthenticated'  
-
-timeout: '1200s'  # Timeout build (20 menit)
-
-options:
-  logging: CLOUD_LOGGING_ONLY
+      [
+        'run', 'deploy', 'backend-service',
+        '--image', 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image',
+        '--region', 'asia-southeast2',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--set-secrets', 'env-file=projects/865893142267/secrets/libraryApp_env:latest'
+      ]
+images:
+  - 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image'
