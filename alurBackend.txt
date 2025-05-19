@@ -1,4 +1,4 @@
-Ketika mahasiswa ingin meminjam buku.
+Ketika mahasiswa ingin meminjam buku
 buku di pinjamkan oleh staff.
 stock buku berkurang dari database.
 database mencatat semua apa yang ada seperti pembuatan id_peminjaman, tanggal_pinjam, id_buku, id_mahasiswa, dan di pinjamkan oleh staff siapa.
