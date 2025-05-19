@@ -20,8 +20,9 @@ steps:
         '--allow-unauthenticated',
         '--set-secrets', 'env-file=projects/865893142267/secrets/libraryApp_env:latest'
       ]
-images:
-  - 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image'
-
+      
 options:
   logging: CLOUD_LOGGING_ONLY
+
+images:
+  - 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image'
