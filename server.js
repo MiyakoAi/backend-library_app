@@ -1,15 +1,8 @@
-import dotenv from "dotenv";
-import fs from "fs";
-
-if (process.env['env-file']) {
-  fs.writeFileSync('.env', process.env['env-file']);
-  dotenv.config(); 
-} else {
-  dotenv.config();
-}
-
 import app from "./src/app.js";
 import sequelize from "./src/config/db.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 
