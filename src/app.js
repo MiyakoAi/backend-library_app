@@ -8,6 +8,7 @@ import staffRoute from "./routes/staffRoute.js";
 import peminjamanRoute from "./routes/peminjamanRoute.js";
 import pengembalianRoute from "./routes/pengembalianRoutes.js";
 import mahasiswaRoute from "./routes/pinjamanMahasiswaRoute.js";
+import adminPeminjamanRoute from "./routes/adminPeminjamanRoute.js";
 
 const app = express();
 // tes lontribusi
@@ -23,6 +24,7 @@ app.use('/api/mahasiswaAdmin', mahasiswaRoutes); // mahasiswa for admin
 app.use("/api", peminjamanRoute); // peminjaman API
 app.use("/api", pengembalianRoute); // pengembalian API
 app.use("/api", mahasiswaRoute); // mahasiswa pinjaman API
+app.use("/api", adminPeminjamanRoute); // admin peminjaman API
 
 
 app.get('/', (req, res) => {

@@ -1,56 +1,70 @@
-import { Staff } from "../models/dbModel.js";
+import { Staff, User } from "../models/dbModel.js";
 
-// GET all staff
+// mendapatkan semua data staff
 export const getAllStaff = async (req, res) => {
   try {
-    const staff = await Staff.findAll();
-    res.json(staff);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const data = await Staff.findAll({ include: [User] });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
   }
 };
 
-// GET single staff
+// mendapatkan data staff berdasarkan id
 export const getStaffById = async (req, res) => {
   try {
-    const staff = await Staff.findByPk(req.params.id);
-    if (!staff) return res.status(404).json({ message: "Staff tidak ditemukan" });
+    const staff = await Staff.findByPk(req.params.id, { include: [User] });
+    if (!staff) return res.status(404).json({ msg: "Staff tidak ditemukan" });
     res.json(staff);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
   }
 };
 
-// CREATE staff
+// menambahkan data staff
 export const createStaff = async (req, res) => {
   try {
-    const staff = await Staff.create(req.body);
-    res.status(201).json(staff);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const { username, password, nama_staff, jabatan_staff, no_tel_staff } = req.body;
+
+    const user = await User.create({ username, password, role: "staff" });
+    const staff = await Staff.create({
+      id_user: user.id,
+      nama_staff,
+      jabatan_staff,
+      no_tel_staff
+    });
+
+    res.status(201).json({ msg: "Staff berhasil ditambahkan", staff });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
   }
 };
 
-// UPDATE staff
+// memperbarui data staff
 export const updateStaff = async (req, res) => {
   try {
     const staff = await Staff.findByPk(req.params.id);
-    if (!staff) return res.status(404).json({ message: "Staff tidak ditemukan" });
+    if (!staff) return res.status(404).json({ msg: "Staff tidak ditemukan" });
+
     await staff.update(req.body);
-    res.json(staff);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.json({ msg: "Staff diperbarui" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
   }
 };
 
-// DELETE staff
+// memperbarui data staff
 export const deleteStaff = async (req, res) => {
   try {
     const staff = await Staff.findByPk(req.params.id);
-    if (!staff) return res.status(404).json({ message: "Staff tidak ditemukan" });
+    if (!staff) return res.status(404).json({ msg: "Staff tidak ditemukan" });
+
+    const userId = staff.id_user;
     await staff.destroy();
-    res.json({ message: "Staff berhasil dihapus" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    await User.destroy({ where: { id: userId } });
+
+    res.json({ msg: "Staff dan akun user terkait berhasil dihapus" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
   }
 };

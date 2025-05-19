@@ -1,5 +1,5 @@
 import express from 'express';
-import {createMahasiswa, getAllMahasiswa, getMahasiswaById, updateMahasiswa, deleteMahasiswa} from '../controllers/mahasiswa.js';
+import {getAllMahasiswa, getMahasiswaById, createMahasiswa, updateMahasiswa, deleteMahasiswa} from '../controllers/mahasiswa.js';
 import { verifyToken } from "../middlewares/verifyToken.js";
 import { authorizeRole } from "../middlewares/authorizeRole.js";
 

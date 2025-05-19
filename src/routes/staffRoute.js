@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllStaff, getStaffById, createStaff, updateStaff, deleteStaff } from "../controllers/staffController.js";
+import {getAllStaff, getStaffById, createStaff, updateStaff, deleteStaff} from "../controllers/staffController.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 import { authorizeRole } from "../middlewares/authorizeRole.js";
 
