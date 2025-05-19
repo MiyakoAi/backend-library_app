@@ -1,5 +1,4 @@
 steps:
-  # Step 0: Ambil secret dan buat file .env
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: bash
     args:
@@ -10,19 +9,16 @@ steps:
         echo ".env berhasil dibuat:"
         cat .env
 
-  # Step 1: Build Docker image (sudah mengandung .env)
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build', '-t', 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image', '.'
     ]
 
-  # Step 2: Push image ke Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push', 'asia-southeast2-docker.pkg.dev/project-rplk/backend-repo/backend-image'
     ]
 
-  # Step 3: Deploy ke Cloud Run (tidak perlu --set-secrets lagi karena .env sudah ada di image)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
