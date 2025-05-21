@@ -38,17 +38,6 @@ export const getPeminjamanTerlambat = async (req, res) => {
       ]
     });
 
-    // Debugging sementara
-    console.log("Peminjaman ditemukan:", peminjaman.length);
-    console.log("Pengembalian ditemukan:", pengembalian.length);
-    console.log("Model Peminjaman tersedia?", typeof Peminjaman !== "undefined");
-    console.log("Model Pengembalian tersedia?", typeof Pengembalian !== "undefined");
-    console.log("Model Mahasiswa tersedia?", typeof Mahasiswa !== "undefined");
-    console.log("Model Buku tersedia?", typeof Buku !== "undefined");
-    console.log("Model Staff tersedia?", typeof Staff !== "undefined");
-    console.log("Data peminjaman:", peminjaman);
-    console.log("Data pengembalian:", pengembalian);
-
     const sudahKembaliSet = new Set(
       pengembalian.map(p => `${p.id_buku}-${p.id_mahasiswa}`)
     );
