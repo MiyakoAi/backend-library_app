@@ -1,4 +1,5 @@
 import { Staff, User } from "../models/dbModel.js";
+import bcrypt from "bcrypt";
 
 // mendapatkan semua data staff
 export const getAllStaff = async (req, res) => {
@@ -26,7 +27,17 @@ export const createStaff = async (req, res) => {
   try {
     const { username, password, nama_staff, jabatan_staff, no_tel_staff } = req.body;
 
-    const user = await User.create({ username, password, role: "staff" });
+    const existing = await User.findOne({ where: { username } });
+    if (existing) return res.status(400).json({ msg: "Username sudah digunakan" });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      username,
+      password: hashedPassword,
+      role: "staff"
+    });
+
     const staff = await Staff.create({
       id_user: user.id,
       nama_staff,
