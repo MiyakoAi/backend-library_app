@@ -67,7 +67,7 @@ export const getPeminjamanTerlambat = async (req, res) => {
       });
 
     if (dataTerlambat.length === 0) {
-      return res.status(200).json({ msg: "Tidak ada mahasiswa yang meminjam buku dari perpustakaan." });
+      return res.status(200).json({ msg: "Tidak ada mahasiswa yang terlambat mengembalikan buku." });
     }
 
     res.json(dataTerlambat);

@@ -3,8 +3,9 @@ import Buku from '../models/dbModel.js';
 // Create buku baru
 export const createBuku = async (req, res) => {
   try {
-    const { judul_buku, penulis_buku, penerbit_buku, tahun_penerbit, stok, images } = req.body;
+    const {id_buku, judul_buku, penulis_buku, penerbit_buku, tahun_penerbit, stok, images } = req.body;
     const newBuku = await Buku.Buku.create({
+      id_buku,
       judul_buku,
       penulis_buku,
       penerbit_buku,
